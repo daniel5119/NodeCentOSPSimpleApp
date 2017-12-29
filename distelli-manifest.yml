@@ -38,7 +38,7 @@ timidri/NodeCentOSPSimpleAppDocker:
   Exec:
     - echo "Exec Starting."
     - publicip=$(curl -s ident.me) || true
-    - echo "You can validate the install by pointing your browser at http://$publicip:8080"
+    - 'echo "You can validate the install by pointing your browser at http://$publicip:8080"'
     ### Docker Exec Commands ###
     - cid=$(uuidgen)
     - trap 'sudo docker stop $cid' SIGTERM
