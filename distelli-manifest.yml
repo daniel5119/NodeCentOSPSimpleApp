@@ -15,10 +15,10 @@ danny1992/NodeCentOSPSimpleApp:
     - echo $DISTELLI_BUILDNUM > ./BUILD_NUMBER
 
     ### Docker Build Commands ###
-    - docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" $DISTELLI_DOCKER_ENDPOINT
-    - docker build --quiet=false --build-arg BUILDNUM="$DISTELLI_BUILDNUM" -t "$DISTELLI_DOCKER_REPO" "$DISTELLI_DOCKER_PATH"
-    - docker tag "$DISTELLI_DOCKER_REPO" "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
-    - docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
+    - sudo docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" $DISTELLI_DOCKER_ENDPOINT
+    - sudo docker build --quiet=false --build-arg BUILDNUM="$DISTELLI_BUILDNUM" -t "$DISTELLI_DOCKER_REPO" "$DISTELLI_DOCKER_PATH"
+    - sudo docker tag "$DISTELLI_DOCKER_REPO" "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
+    - sudo docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
     ### End Docker Build Commands ###
   
   PkgInclude:
@@ -37,12 +37,12 @@ danny1992/NodeCentOSPSimpleApp:
     # - npm install
   Exec:
     - echo "Exec Starting."
-    - publicip=$(curl -s ident.me) || true
-    - 'echo "You can validate the install by pointing your browser at http://$publicip:8080"'
+    - sudo publicip=$(curl -s ident.me) || true
+    - sudo 'echo "You can validate the install by pointing your browser at http://$publicip:8080"'
     ### Docker Exec Commands ###
-    - cid=$(uuidgen)
-    - trap 'sudo docker stop $cid' SIGTERM
-    - sudo -E docker run --name=$cid $DISTELLI_DOCKER_ENVS --rm=true $DISTELLI_DOCKER_PORTS  "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM" &
-    - wait
-    - "true"
+    - sudo cid=$(uuidgen)
+    - sudo trap 'sudo docker stop $cid' SIGTERM
+    - sudo sudo -E docker run --name=$cid $DISTELLI_DOCKER_ENVS --rm=true $DISTELLI_DOCKER_PORTS  "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM" &
+    - sudo wait
+    - sudo "true"
     ### End Docker Exec Commands ###
